@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "360199763887",
+    "firebase_url": "https://classic-car-leads.firebaseio.com",
+    "project_id": "classic-car-leads",
+    "storage_bucket": "classic-car-leads.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360199763887:android:d7d04ed8e953f4ef",
+        "android_client_info": {
+          "package_name": "com.suncoastsoftware.classiccarleads"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360199763887-olu99ivehrtdri4lpvaiseku2ma38r36.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.suncoastsoftware.classiccarleads",
+            "certificate_hash": "d58b7dbf8445ef723cacda5964991ddfc3525370"
+          }
+        },
+        {
+          "client_id": "360199763887-0564jf79f6692cr94a1eecocrk5g3oom.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrUbDvgOm6Qyt5JJWty0p5yDlKbu6dc0Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360199763887-0564jf79f6692cr94a1eecocrk5g3oom.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360199763887:android:f99972143db900f3",
+        "android_client_info": {
+          "package_name": "com.commandcenter.classiccarleads"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360199763887-ncurufhh863s5cjrd1c3fij1bog6oe54.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.commandcenter.classiccarleads",
+            "certificate_hash": "21c30fb4e8c51469b220d2a5209d332d325e1445"
+          }
+        },
+        {
+          "client_id": "360199763887-0564jf79f6692cr94a1eecocrk5g3oom.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrUbDvgOm6Qyt5JJWty0p5yDlKbu6dc0Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360199763887-0564jf79f6692cr94a1eecocrk5g3oom.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
