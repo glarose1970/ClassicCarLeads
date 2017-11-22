@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.commandcenter.classiccarleads.Register_Activity"
+    tools:context="com.commandcenter.classiccarleads.controller.Register_Activity"
     android:background="@drawable/layout_background">
 
     <ImageView
