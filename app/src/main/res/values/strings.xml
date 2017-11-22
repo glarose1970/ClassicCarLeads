@@ -3,4 +3,10 @@
     <string name="mainLogo_contentDescription">Main Logo Img</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Password</string>
+    <string name="btnRegister">Register</string>
+    <string name="btnLogin">Log In</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_cancel">Cancel</string>
 </resources>

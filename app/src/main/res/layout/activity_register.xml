@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.commandcenter.classiccarleads.Login_Activity"
-    android:background="@drawable/layout_background"
-   >
+    tools:context="com.commandcenter.classiccarleads.Register_Activity"
+    android:background="@drawable/layout_background">
 
     <ImageView
         android:layout_width="350dp"
@@ -37,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log In"
+                android:text="@string/register"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -46,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log In with Email and Password!"
+                android:text="Register new account!"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="italic"
@@ -54,7 +52,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <EditText
-                android:id="@+id/login_et_email"
+                android:id="@+id/register_et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/emailHint"
@@ -62,12 +60,13 @@
                 android:drawableLeft="@drawable/ic_person_50"/>
 
             <EditText
-                android:id="@+id/login_et_password"
+                android:id="@+id/register_et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/passwordHint"
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_vpn_key"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,17 +76,17 @@
                 android:layout_marginTop="10dp">
 
                 <Button
-                    android:id="@+id/login_btnLogin"
+                    android:id="@+id/register_btnRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/btnLogin"
+                    android:text="@string/btn_register"
                     android:textColor="@color/colorAccent"/>
 
                 <Button
-                    android:id="@+id/login_btnRegister"
+                    android:id="@+id/register_btnCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/btnRegister"
+                    android:text="@string/btn_cancel"
                     android:textColor="@color/colorAccent"/>
             </LinearLayout>
         </LinearLayout>
