@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#7D8A9E</color>
     <color name="colorAccent">#F05146</color>
     <color name="white">#FFFFFF</color>
+    <color name="listingBackgroundStart">#fceedb</color>
+    <color name="listingBackgroundEnd">#d9c6ad</color>
+    <color name="greyText">#5f5f60</color>
 </resources>

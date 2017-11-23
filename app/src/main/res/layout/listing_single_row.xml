@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:padding="2dp"
+        android:background="@drawable/listing_single_row_background">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/listing_single_row_iv_listingImg"
+                android:layout_width="75dp"
+                android:layout_height="65dp"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop"
+                android:padding="2dp"/>
+            <TextView
+                android:id="@+id/listing_single_row_tv_listingID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ListingID"
+                android:textColor="@color/greyText"
+                android:textStyle="italic"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/listing_single_row_tv_listingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Listing Title"
+                android:textColor="@color/greyText"
+                android:padding="2dp"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/listing_single_row_tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textStyle="italic"
+                    android:textColor="@color/greyText"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/listing_single_row_tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textStyle="italic"
+                    android:textColor="@color/greyText"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
