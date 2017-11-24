@@ -26,8 +26,11 @@
         <activity
             android:name=".controller.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Single_Listing_View"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".controller.Single_Listing_View"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>

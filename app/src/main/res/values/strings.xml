@@ -21,7 +21,7 @@
     <string name="price">Price</string>
     <string name="title">Title</string>
     <string name="email">Email</string>
-    <string name="phone_optional">Phone (optional)</string>
+    <string name="phone">Phone</string>
     <string name="btnSubmit">Submit</string>
     <string name="btnCancel">Cancel</string>
     <string name="btnView">View</string>

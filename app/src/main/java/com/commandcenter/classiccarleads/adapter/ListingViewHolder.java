@@ -1,14 +1,11 @@
 package com.commandcenter.classiccarleads.adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.commandcenter.classiccarleads.R;
-import com.commandcenter.classiccarleads.Single_Listing_View;
 
 /**
  * Created by Command Center on 11/22/2017.

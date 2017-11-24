@@ -66,6 +66,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/layout_controls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -74,6 +75,32 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/trans_white_rectangle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request Info"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Submit your contact details"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/colorAccent"
+                    />
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -112,7 +139,7 @@
                     android:id="@+id/single_listing_view_et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/phone_optional"
+                    android:hint="@string/phone"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:textSize="14sp"/>
