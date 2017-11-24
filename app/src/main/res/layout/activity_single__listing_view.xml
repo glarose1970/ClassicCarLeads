@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/layout_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/single_listing_view_iv_mainImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left"
+            android:layout_marginLeft="12dp">
+
+            <TextView
+                android:id="@+id/single_listing_view_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:id="@+id/single_listing_view_tv_listingID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Listing ID"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:id="@+id/single_listing_view_tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:paddingBottom="2dp"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="65dp">
+
+                <TextView
+                    android:id="@+id/single_listing_view_tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:paddingBottom="2dp"/>
+            </ScrollView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/trans_white_rectangle">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/single_listing_view_et_firstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_name"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:textSize="14sp"/>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/single_listing_view_et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:textSize="14sp"/>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/single_listing_view_et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phone_optional"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:textSize="14sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="12dp">
+
+                <Button
+                    android:id="@+id/single_listing_view_btn_Submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnSubmit"/>
+
+                <Button
+                    android:id="@+id/single_listing_view_btn_Cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnCancel"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -21,12 +21,21 @@ import android.widget.TextView;
 
 import com.commandcenter.classiccarleads.R;
 import com.commandcenter.classiccarleads.adapter.SectionsPageAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     //==========TAG==========//
     private final String TAG = "MAIN ACTIVITY";
     //==========END TAG==========//
+
+    //==========FIREBASE==========//
+    FirebaseAuth mAuth;
+    FirebaseDatabase mData;
+    DatabaseReference mUsers;
+    //==========END FIREBASE==========//
 
     //==========SECTION PAGE ADAPTER==========//
     private SectionsPageAdapter mSectionsPageAdapter;
@@ -38,12 +47,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (mAuth != null) {
+            mData = FirebaseDatabase.getInstance();
+            mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid());
+            mUsers.removeValue();
+        }else {
+            mAuth = FirebaseAuth.getInstance();
+            mData = FirebaseDatabase.getInstance();
+            mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid());
+            mUsers.removeValue();
+        }
+
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.container);
         setUpViewPager(mViewPager);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUsers.removeValue();
     }
 
     //==========SETUP VIEW PAGER==========//

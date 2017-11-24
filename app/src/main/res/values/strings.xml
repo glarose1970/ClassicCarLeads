@@ -16,4 +16,13 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="btn_search">Search</string>
+    <string name="first_name">First Name</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
+    <string name="title">Title</string>
+    <string name="email">Email</string>
+    <string name="phone_optional">Phone (optional)</string>
+    <string name="btnSubmit">Submit</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="btnView">View</string>
 </resources>
