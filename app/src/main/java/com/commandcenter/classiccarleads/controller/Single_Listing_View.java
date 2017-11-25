@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.commandcenter.classiccarleads.R;
+import com.commandcenter.classiccarleads.model.Dealer;
+import com.commandcenter.classiccarleads.model.Listing;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,12 +48,14 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
     private String dealerUrl;
     //==========END CLASS VARIABLES==========//
 
+    private String[] details;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single__listing_view);
 
-        String[] details = getIntent().getStringArrayExtra("details");
+        details = getIntent().getStringArrayExtra("details");
         Init();
 
         if (details != null) {
@@ -127,7 +131,10 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
 
         switch(id) {
             case R.id.single_listing_view_btn_save:
-
+                // save the listing to the database
+                Map listingMap = new HashMap();
+                listingMap.put("img_url", details[3]);
+                listingMap.put("desc", details[6]);
                 break;
             case R.id.single_listing_view_btn_Submit:
                 if (TextUtils.isEmpty(et_name.getText().toString()) || TextUtils.isEmpty(et_email.getText().toString())) {
