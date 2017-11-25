@@ -15,7 +15,8 @@
             android:name=".controller.Login_Activity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:windowSoftInputMode="stateHidden"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

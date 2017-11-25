@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth != null) {
             mData = FirebaseDatabase.getInstance();
-            mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid());
+            mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("query");
             mUsers.removeValue();
         }else {
             mAuth = FirebaseAuth.getInstance();
             mData = FirebaseDatabase.getInstance();
-            mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid());
+            mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("query");
             mUsers.removeValue();
         }
 

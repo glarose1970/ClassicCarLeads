@@ -23,6 +23,14 @@ public class Listing {
     public Listing() {
     }
 
+    public Listing(String listingID, String img_url, String title, String price, String desc) {
+        this.listingID = listingID;
+        this.img_url = img_url;
+        this.title = title;
+        this.price = price;
+        this.desc = desc;
+    }
+
     public Listing(Dealer dealerInfo, String listingID, String img_url, String title, String make, String model, String year, String price, String desc, String location) {
         this.dealerInfo = dealerInfo;
         this.listingID = listingID;

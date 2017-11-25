@@ -1,5 +1,8 @@
 package com.commandcenter.classiccarleads.controller;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -59,13 +62,22 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         Init();
 
         if (details != null) {
-            dealerName = details[0];
-            dealerUrl = details[1];
-            Picasso.with(this).load(details[2]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
-            tv_title.setText(details[4]);
-            tv_listingID.setText(details[3]);
-            tv_price.setText(details[5]);
-            tv_desc.setText(details[6]);
+            if (details.length > 5) {
+                dealerName = details[0];
+                dealerUrl = details[1];
+                Picasso.with(this).load(details[2]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
+                tv_title.setText(details[4]);
+                tv_listingID.setText(details[3]);
+                tv_price.setText(details[5]);
+                tv_desc.setText(details[6]);
+            }else {
+                Picasso.with(this).load(details[0]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
+                tv_title.setText(details[2]);
+                tv_listingID.setText(details[1]);
+                tv_price.setText(details[3]);
+                tv_desc.setText(details[4]);
+            }
+
         }
 
     }
@@ -103,12 +115,12 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         if (mAuth != null) {
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
-            mDataRef = mData.getReference().child(mCurUser.getUid()).child("query");
+            mDataRef = mData.getReference().child(mCurUser.getUid());
         }else {
             mAuth = FirebaseAuth.getInstance();
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
-            mDataRef = mData.getReference().child(mCurUser.getUid()).child("query");
+            mDataRef = mData.getReference().child(mCurUser.getUid());
         }
 
         iv_mainImg   = findViewById(R.id.single_listing_view_iv_mainImg);
@@ -119,9 +131,9 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         tv_price     = findViewById(R.id.single_listing_view_tv_price);
         tv_desc      = findViewById(R.id.single_listing_view_tv_desc);
         tv_listingID = findViewById(R.id.single_listing_view_tv_listingID);
-        btn_submit   = findViewById(R.id.single_listing_view_btn_Submit);
-        btn_cancel   = findViewById(R.id.single_listing_view_btn_Cancel);
-        btn_save     = findViewById(R.id.single_listing_view_btn_save);
+        findViewById(R.id.single_listing_view_btn_Submit).setOnClickListener(this);
+        findViewById(R.id.single_listing_view_btn_Cancel).setOnClickListener(this);
+        findViewById(R.id.single_listing_view_btn_save).setOnClickListener(this);
 
     }
 
@@ -133,8 +145,17 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
             case R.id.single_listing_view_btn_save:
                 // save the listing to the database
                 Map listingMap = new HashMap();
-                listingMap.put("img_url", details[3]);
+                listingMap.put("img_url", details[2]);
+                listingMap.put("listingID", details[3]);
                 listingMap.put("desc", details[6]);
+                listingMap.put("title", details[4]);
+                listingMap.put("price", details[5]);
+                mDataRef.child("saved_searches").child(details[3]).setValue(listingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        buildAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to yout history");
+                    }
+                });
                 break;
             case R.id.single_listing_view_btn_Submit:
                 if (TextUtils.isEmpty(et_name.getText().toString()) || TextUtils.isEmpty(et_email.getText().toString())) {
@@ -150,5 +171,19 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
 
                 break;
         }
+    }
+
+    private void buildAlert(Context context, String title, String message) {
+
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
+
     }
 }

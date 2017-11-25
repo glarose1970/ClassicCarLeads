@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -63,7 +64,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
     //==========EDIT TEXT==========//
     private EditText et_make, et_model, et_location;
-    private TextView tv_results;
     //==========END EDIT TEXT==========//
 
     //==========SEARCHLISTINGHELPER==========//
@@ -71,10 +71,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     //==========END SEARCHLISTINGHELPER==========//
 
     LinearLayout controls;
+    private AutoCompleteTextView tv_autoComplete;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         final View view = inflater.inflate(R.layout.search_fragment, container, false);
 
         years = new ArrayList<>();
@@ -85,11 +87,20 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         et_make = view.findViewById(R.id.search_fragment_et_make);
         et_model = view.findViewById(R.id.search_fragment_et_model);
         et_location = view.findViewById(R.id.search_fragment_et_location);
-        tv_results = view.findViewById(R.id.search_fragment_totalResults);
-
+        ArrayAdapter<String> statesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.states));
+        tv_autoComplete = view.findViewById(R.id.search_fragment_autoCompleteTV);
+        tv_autoComplete.setAdapter(statesAdapter);
         GeneratYears();
         yearAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, years);
         spinner_year.setAdapter(yearAdapter);
+        tv_autoComplete.setText("Enter Location");
+        tv_autoComplete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                tv_autoComplete.showDropDown();
+            }
+        });
 
 
         return view;
@@ -123,7 +134,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                      String[] query = new String[] { year, make, model, loc };
                      intent.putExtra("query", query);
                      startActivity(intent);
-                    //new DoSearch().execute(year, make, model, loc);
+
                 }
                 break;
             case R.id.search_fragment_btn_cancel:
