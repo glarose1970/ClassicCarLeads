@@ -13,8 +13,16 @@
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="150dp">
 
+        <Spinner
+            android:id="@+id/search_fragment_spinner_year"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="left">
+        </Spinner>
        <android.support.design.widget.TextInputLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
@@ -40,14 +48,6 @@
                 />
         </android.support.design.widget.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/search_fragment_spinner_year"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="6dp">
-        </Spinner>
-
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -70,10 +70,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="2dp"
-            android:layout_gravity="right">
+            android:layout_gravity="center_horizontal">
 
+            <Button
+                android:id="@+id/search_fragment_btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_save"/>
             <Button
                 android:id="@+id/search_fragment_btn_search"
                 android:layout_width="wrap_content"
@@ -84,20 +88,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_cancel"/>
+            <Button
+                android:id="@+id/search_fragment_btn_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_clear"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_fragment_listing_recView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="2dp">
-
-    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -25,4 +25,6 @@
     <string name="btnSubmit">Submit</string>
     <string name="btnCancel">Cancel</string>
     <string name="btnView">View</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_clear">Clear</string>
 </resources>

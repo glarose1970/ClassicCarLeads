@@ -27,10 +27,11 @@
             android:name=".controller.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".controller.Single_Listing_View"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".controller.Single_Listing_View"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".controller.Search_Recview_Activity"></activity>
     </application>
 
 </manifest>

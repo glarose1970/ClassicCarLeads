@@ -18,53 +18,69 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="left"
-            android:layout_marginLeft="12dp">
 
-            <TextView
-                android:id="@+id/single_listing_view_tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:id="@+id/single_listing_view_tv_listingID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Listing ID"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:id="@+id/single_listing_view_tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                android:paddingBottom="2dp"/>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="65dp">
-
-                <TextView
-                    android:id="@+id/single_listing_view_tv_desc"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/description"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
-                    android:paddingBottom="2dp"/>
-            </ScrollView>
+                    android:orientation="vertical"
+                    android:gravity="left"
+                    android:layout_marginLeft="12dp">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/single_listing_view_tv_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingBottom="2dp"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/single_listing_view_btn_save"
+                            android:layout_width="60dp"
+                            android:layout_height="36dp"
+                            android:layout_marginRight="20dp"
+                            android:text="Save"
+                            android:textSize="12sp"/>
+
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/single_listing_view_tv_listingID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Listing ID"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        android:paddingBottom="2dp"/>
+                    <TextView
+                        android:id="@+id/single_listing_view_tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        android:paddingBottom="2dp"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp">
+
+                        <TextView
+                            android:id="@+id/single_listing_view_tv_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/description"
+                            android:textSize="12sp"
+                            android:textStyle="italic"
+                            android:paddingBottom="2dp"/>
+                    </ScrollView>
+
+                </LinearLayout>
         <LinearLayout
             android:id="@+id/layout_controls"
             android:layout_width="match_parent"
@@ -154,6 +170,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="12dp">
+
 
                 <Button
                     android:id="@+id/single_listing_view_btn_Submit"
