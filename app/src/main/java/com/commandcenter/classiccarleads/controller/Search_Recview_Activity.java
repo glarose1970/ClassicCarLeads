@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.commandcenter.classiccarleads.R;
 import com.commandcenter.classiccarleads.adapter.ListingViewHolder;
@@ -261,6 +262,12 @@ public class Search_Recview_Activity extends AppCompatActivity {
             super.onPostExecute(s);
 
             hideProgressDialog();
+            if (listingCount == 0) {
+                Toast.makeText(Search_Recview_Activity.this, "0 Results Found!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Search_Recview_Activity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
         }
 
         @Override

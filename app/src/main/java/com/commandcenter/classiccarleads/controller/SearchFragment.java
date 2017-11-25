@@ -70,36 +70,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private SearchListingHelper searchHelper;
     //==========END SEARCHLISTINGHELPER==========//
 
-    //==========FIREBASE==========//
-    private FirebaseAuth mAuth;
-    private FirebaseUser mCurUser;
-    private FirebaseDatabase mData;
-    private DatabaseReference mUsers;
-    private FirebaseRecyclerAdapter listingAdapter;
-    //==========END FIREBASE==========//
-
-    //==========RECYCLERVIEW==========//
-    private RecyclerView listingRecView;
-    //private ListingViewHolder listingViewHolder;
-    //==========END RECYCLERVIEW==========//
-
     LinearLayout controls;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.search_fragment, container, false);
-
-        if (mAuth != null) {
-            mCurUser = mAuth.getCurrentUser();
-            mData = FirebaseDatabase.getInstance();
-            mUsers = mData.getReference().child(mCurUser.getUid()).child("query");
-        }else {
-            mAuth = FirebaseAuth.getInstance();
-            mCurUser = mAuth.getCurrentUser();
-            mData = FirebaseDatabase.getInstance();
-            mUsers = mData.getReference().child(mCurUser.getUid()).child("query");
-        }
 
         years = new ArrayList<>();
         controls = view.findViewById(R.id.search_fragment_layout_controls);
@@ -120,10 +96,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        clearInput(controls);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        listingAdapter.cleanup();
     }
 
     @Override
@@ -134,7 +115,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                 if (TextUtils.isEmpty(et_make.getText().toString()) || TextUtils.isEmpty(et_model.getText().toString()) || spinner_year.getSelectedItem().toString() == "") {
                     Toast.makeText(getContext(), "All Fields Required", Toast.LENGTH_SHORT).show();
                 }else {
-                     mUsers.removeValue();
                      String make = et_make.getText().toString();
                      String model = et_model.getText().toString();
                      String loc = et_location.getText().toString();
