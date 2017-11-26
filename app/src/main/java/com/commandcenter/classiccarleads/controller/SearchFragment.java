@@ -71,7 +71,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     //==========END SEARCHLISTINGHELPER==========//
 
     LinearLayout controls;
-    private AutoCompleteTextView tv_autoComplete;
+    private AutoCompleteTextView tv_autoMake, tv_autoModel, tv_autoLoc;
 
     @Nullable
     @Override
@@ -84,32 +84,50 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         spinner_year = view.findViewById(R.id.search_fragment_spinner_year);
         view.findViewById(R.id.search_fragment_btn_cancel).setOnClickListener(SearchFragment.this);
         view.findViewById(R.id.search_fragment_btn_search).setOnClickListener(SearchFragment.this);
-        et_make = view.findViewById(R.id.search_fragment_et_make);
-        et_model = view.findViewById(R.id.search_fragment_et_model);
-        et_location = view.findViewById(R.id.search_fragment_et_location);
-        ArrayAdapter<String> statesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.states));
-        tv_autoComplete = view.findViewById(R.id.search_fragment_autoCompleteTV);
-        tv_autoComplete.setAdapter(statesAdapter);
+        //et_make = view.findViewById(R.id.search_fragment_et_make);
+        //et_model = view.findViewById(R.id.search_fragment_et_model);
+        //et_location = view.findViewById(R.id.search_fragment_et_location);
+        ArrayAdapter<String> statesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.states));
+        ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.makes));
+        ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.models));
+        tv_autoMake = view.findViewById(R.id.search_fragment_autoMake);
+        tv_autoModel = view.findViewById(R.id.search_fragment_autoModel);
+        tv_autoLoc  =  view.findViewById(R.id.search_fragment_autoLoc);
+        tv_autoMake.setAdapter(makeAdapter);
+        tv_autoModel.setAdapter(modelAdapter);
+        tv_autoLoc.setAdapter(statesAdapter);
         GeneratYears();
         yearAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, years);
         spinner_year.setAdapter(yearAdapter);
-        tv_autoComplete.setText("Enter Location");
-        tv_autoComplete.setOnClickListener(new View.OnClickListener() {
+
+        tv_autoMake.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                tv_autoComplete.showDropDown();
+                tv_autoMake.showDropDown();
             }
         });
-
+        tv_autoModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_autoModel.showDropDown();
+            }
+        });
+        tv_autoLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_autoLoc.showDropDown();
+            }
+        });
 
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-        clearInput(controls);
+        clearInput();
     }
 
     @Override
@@ -123,12 +141,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         int id = v.getId();
         switch (id) {
             case R.id.search_fragment_btn_search:
-                if (TextUtils.isEmpty(et_make.getText().toString()) || TextUtils.isEmpty(et_model.getText().toString()) || spinner_year.getSelectedItem().toString() == "") {
+                if (TextUtils.isEmpty(tv_autoMake.getText().toString()) || TextUtils.isEmpty(tv_autoModel.getText().toString()) || spinner_year.getSelectedItem().toString() == "") {
                     Toast.makeText(getContext(), "All Fields Required", Toast.LENGTH_SHORT).show();
                 }else {
-                     String make = et_make.getText().toString();
-                     String model = et_model.getText().toString();
-                     String loc = et_location.getText().toString();
+                     String make = tv_autoMake.getText().toString();
+                     String model = tv_autoModel.getText().toString();
+                     String loc = tv_autoLoc.getText().toString();
                      String year = spinner_year.getSelectedItem().toString();
                      Intent intent = new Intent(getContext(), Search_Recview_Activity.class);
                      String[] query = new String[] { year, make, model, loc };
@@ -138,7 +156,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.search_fragment_btn_cancel:
-                clearInput(controls);
+                clearInput();
+
                 break;
         }
     }
@@ -151,15 +170,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void clearInput(LinearLayout controlBox) {
-
-        for (int i = 0; i < controlBox.getChildCount(); i++) {
-            View view = controlBox.getChildAt(i);
-            if (view instanceof TextInputLayout) {
-                View parent = ((TextInputLayout) view).getEditText();
-                ((EditText) parent).setText("");
-            }
-        }
-
+    private void clearInput() {
+        tv_autoModel.setText("");
+        tv_autoMake.setText("");
+        tv_autoLoc.setText("");
     }
 }

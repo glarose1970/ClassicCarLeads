@@ -27,6 +27,7 @@
     <string name="btnView">View</string>
     <string name="btn_save">Save</string>
     <string name="btn_clear">Clear</string>
+    <string name="zipcode">Zipcode</string>
 
     <string-array name="states">
         <item>Alabama</item>
@@ -40,4 +41,17 @@
         <item>Florida</item>
         <item>Georgia</item>
     </string-array>
+
+    <array name="makes">
+        <item>Ford</item>
+        <item>Checvrolet</item>
+        <item>Buick</item>
+        <item>BMW</item>
+    </array>
+
+    <array name="models">
+        <item>Mustang</item>
+        <item>F-150</item>
+        <item>Thunderbird</item>
+    </array>
 </resources>

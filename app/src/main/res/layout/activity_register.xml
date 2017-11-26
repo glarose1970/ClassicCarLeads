@@ -67,6 +67,14 @@
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_vpn_key"/>
 
+            <EditText
+                android:id="@+id/register_et_zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zipcode"
+                android:inputType="textPassword"
+                android:drawableLeft="@drawable/ic_pin_drop" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -101,10 +101,12 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                             loginProgress.dismiss();
                             Intent mainIntent = new Intent(Login_Activity.this, MainActivity.class);
                             startActivity(mainIntent);
+                            finish();
                         }else {
                             Log.d(TAG, "signInUserWithEmail: Failure", task.getException());
                             loginProgress.dismiss();
                             Toast.makeText(Login_Activity.this, "Authentication Failed.\r\n Please Register New Account.", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
@@ -124,6 +126,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                 String[] userDetails = new String[] { et_email.getText().toString(), et_password.getText().toString() };
                 registerIntent.putExtra("user_details", userDetails);
                 startActivity(registerIntent);
+                finish();
                 break;
         }
     }

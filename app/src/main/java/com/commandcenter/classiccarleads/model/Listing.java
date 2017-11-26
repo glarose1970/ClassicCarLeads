@@ -17,21 +17,23 @@ public class Listing {
     private String price;
     private String desc;
     private String location;
+    private String long_desc;
     //==========END PRIVATE FIELDS==========//
 
     //==========CONSTRUCTOR==========//
     public Listing() {
     }
 
-    public Listing(String listingID, String img_url, String title, String price, String desc) {
+    public Listing(String listingID, String img_url, String title, String price, String desc, String long_desc) {
         this.listingID = listingID;
         this.img_url = img_url;
         this.title = title;
         this.price = price;
         this.desc = desc;
+        this.long_desc = long_desc;
     }
 
-    public Listing(Dealer dealerInfo, String listingID, String img_url, String title, String make, String model, String year, String price, String desc, String location) {
+    public Listing(Dealer dealerInfo, String listingID, String img_url, String title, String make, String model, String year, String price, String desc, String long_desc, String location) {
         this.dealerInfo = dealerInfo;
         this.listingID = listingID;
         this.img_url = img_url;
@@ -41,11 +43,22 @@ public class Listing {
         this.year = year;
         this.price = price;
         this.desc = desc;
+        this.long_desc = long_desc;
         this.location = location;
     }
     //==========END CONSTRUCTOR==========//
 
     //==========GETTER/SETTER==========//
+
+
+    public String getLong_desc() {
+        return long_desc;
+    }
+
+    public void setLong_desc(String long_desc) {
+        this.long_desc = long_desc;
+    }
+
     public Dealer getDealerInfo() {
         return dealerInfo;
     }

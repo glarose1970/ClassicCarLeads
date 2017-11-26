@@ -100,7 +100,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        String[] details = new String[] { listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getDesc() };
+                        String[] details = new String[] { listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getLong_desc() };
                         Intent intent = new Intent(Search_Recview_Activity.this, Single_Listing_View.class);
                         intent.putExtra("details", details);
                         startActivity(intent);
@@ -161,6 +161,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                 Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
                                 Elements liNode = ulNode.select("li");
 
+                                String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
                                 //dealer info
                                 Element dealerInfoNode = nodeDoc.getElementById("seller-info");
                                 Elements dealerLi = dealerInfoNode.select("li");
@@ -170,11 +171,11 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                         String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
                                         dealer = new Dealer(dealerName, dealerWeb);
 
-                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, strings[3]);
+                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
                                         mUsers.child(id).setValue(listing);
                                     }
                                 }else {
-                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, strings[3]);
+                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
                                     mUsers.child(id).setValue(listing);
                                 }
                                 publishProgress((total * 100) / listingCount);
@@ -217,6 +218,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                 Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
                                 Elements liNode = ulNode.select("li");
 
+                                String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
                                 //dealer info
                                 Element dealerInfoNode = nodeDoc.getElementById("seller-info");
                                 Elements dealerLi = dealerInfoNode.select("li");
@@ -226,11 +228,11 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                         String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
                                         dealer = new Dealer(dealerName, dealerWeb);
 
-                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, strings[3]);
+                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
                                         mUsers.child(id).setValue(listing);
                                     }
                                 }else {
-                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, strings[3]);
+                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
                                     mUsers.child(id).setValue(listing);
                                 }
                                 publishProgress((total * 100) / listingCount);
