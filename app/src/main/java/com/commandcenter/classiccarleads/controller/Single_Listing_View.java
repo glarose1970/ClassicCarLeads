@@ -153,7 +153,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 mDataRef.child("saved_searches").child(details[3]).setValue(listingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        buildAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to yout history");
+                        buildAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to your history");
                     }
                 });
                 break;

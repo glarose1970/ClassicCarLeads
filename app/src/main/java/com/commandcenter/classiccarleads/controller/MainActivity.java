@@ -22,8 +22,11 @@ import android.widget.TextView;
 import com.commandcenter.classiccarleads.R;
 import com.commandcenter.classiccarleads.adapter.SectionsPageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
+
 
     @Override
     protected void onDestroy() {

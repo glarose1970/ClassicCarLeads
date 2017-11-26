@@ -28,15 +28,23 @@ import android.widget.Toast;
 
 import com.commandcenter.classiccarleads.R;
 import com.commandcenter.classiccarleads.adapter.ListingViewHolder;
+import com.commandcenter.classiccarleads.model.Dealer;
 import com.commandcenter.classiccarleads.model.Listing;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,7 +80,10 @@ public class FeaturedFragment extends Fragment {
     private double mLongitude;
     //==========END GPS==========//
 
-    Button btn_test;
+    //==========ZIPCODE==========//
+    private String Zipcode;
+    //==========END ZIPCODE==========//
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,7 +91,8 @@ public class FeaturedFragment extends Fragment {
 
         Init(view);
 
-        Query query = mDataRef;
+        new DoSearch().execute("");
+        Query query = mDataRef.child("featured");
         listingAdapter = new FirebaseRecyclerAdapter<Listing, ListingViewHolder>(Listing.class, R.layout.listing_single_row, ListingViewHolder.class, query) {
 
             @Override
@@ -96,7 +108,7 @@ public class FeaturedFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        String[] details = new String[]{listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getDesc()};
+                        String[] details = new String[]{listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getLong_desc()};
                         Intent intent = new Intent(getContext(), Single_Listing_View.class);
                         intent.putExtra("details", details);
                         startActivity(intent);
@@ -117,18 +129,26 @@ public class FeaturedFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
     private void Init(View view) {
 
         if (mAuth != null) {
+            mAuth = FirebaseAuth.getInstance();
             mData = FirebaseDatabase.getInstance();
-            mDataRef = mData.getReference().child("featured_dealers");
             mCurUser = mAuth.getCurrentUser();
+            mDataRef = mData.getReference().child(mCurUser.getUid());
         } else {
             mAuth = FirebaseAuth.getInstance();
             mData = FirebaseDatabase.getInstance();
-            mDataRef = mData.getReference().child("featured_dealers");
             mCurUser = mAuth.getCurrentUser();
+            mDataRef = mData.getReference().child(mCurUser.getUid());
         }
+
 
         featuredRecView = view.findViewById(R.id. featured_listingRecView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -139,23 +159,82 @@ public class FeaturedFragment extends Fragment {
 
     }
 
-    private String getZipCode() {
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        try {
-            List<Address> adresses = geocoder.getFromLocation(mLatitude, mLongitude, 1);
-            String zip = adresses.get(0).getPostalCode();
-            return zip;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
+    public void getZipcode() {
+
+        mDataRef.child("profile").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild("zipcode")) {
+                    Zipcode = dataSnapshot.child("zipcode").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private class DoSearch extends AsyncTask<String, Void, String> {
 
+
         @Override
         protected String doInBackground(String... strings) {
+            getZipcode();
+            try {
+                Document mainDoc = Jsoup.connect("https://classiccars.com/listings/find?auction=false&dealer=true&private=false&zip=" + Zipcode).get();
+                String[] items = mainDoc.getElementsByClass("search-result-info").text().split(" ");
+                int listingPageCount = Integer.parseInt(items[0]);
 
+                for (int i = 1; i < listingPageCount; i++) {
+                    Document pageDoc = Jsoup.connect("https://classiccars.com/listings/find?auction=false&dealer=true&p=" + i + "&private=false&zip=" + strings[0]).get();
+                    Elements listingElements = pageDoc.getElementsByClass("search-result-item");
+
+                    if (listingElements != null) {
+                        for (Element node :listingElements) {
+                            //get title, imgLink and id here.
+                            Element link = node.select("a").first();
+                            String linkHref = link.attr("href");
+                            String imgLink = node.select("[src]").attr("src");
+                            String title = node.getElementsByClass("item-ymm").text();
+                            String id = node.getElementsByClass("item-stock-no").text();
+                            String desc = node.getElementsByClass("item-desc").text();
+                            String price = node.getElementsByClass("item-price").text();
+
+                            //load the main listing page to extract the listing details
+                            Document nodeDoc = Jsoup.connect("https://classiccars.com" + linkHref).get();
+                            String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
+
+                            //listing details
+                            Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
+                            Elements liNode = ulNode.select("li");
+                            String year = liNode.get(3).getElementsByClass("detail-value").text();
+                            String make = liNode.get(4).getElementsByClass("detail-value").text();
+                            String model = liNode.get(5).getElementsByClass("detail-value").text();
+                            //dealer info
+                            Element dealerInfoNode = nodeDoc.getElementById("seller-info");
+                            Elements dealerLi = dealerInfoNode.select("li");
+
+                            if (dealerInfoNode != null) {
+                                if (dealerLi.size() >= 3) {
+                                    String dealerName = dealerLi.get(0).text();
+                                    String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
+                                    Dealer dealer = new Dealer(dealerName, dealerWeb);
+
+                                    Listing listing = new Listing(dealer, id, imgLink, title, make, model, year, price, desc, long_desc, strings[0]);
+                                    mDataRef.child("featured").child(id).setValue(listing);
+                                }
+                            }else {
+                                Listing listing = new Listing(null, id, imgLink, title, make, model, year, price, desc, long_desc, strings[3]);
+                                mDataRef.child("featured").child(id).setValue(listing);
+                            }
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
     }

@@ -110,6 +110,7 @@ public class Register_Activity extends AppCompatActivity implements View.OnClick
                             Toast.makeText(Register_Activity.this, "Account Created!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Register_Activity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     });
                 }else {
