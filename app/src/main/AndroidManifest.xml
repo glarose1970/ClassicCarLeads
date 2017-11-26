@@ -33,6 +33,7 @@
             android:name=".controller.Single_Listing_View"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".controller.Search_Recview_Activity"></activity>
+
     </application>
 
 </manifest>

@@ -90,8 +90,8 @@ public class FeaturedFragment extends Fragment {
         View view = inflater.inflate(R.layout.featured_fragment, container, false);
 
         Init(view);
-
-        new DoSearch().execute("");
+        Zipcode = ((MainActivity) getActivity()).MainActivityZipcode;
+        new DoFeaturedSearch().execute(Zipcode);
         Query query = mDataRef.child("featured");
         listingAdapter = new FirebaseRecyclerAdapter<Listing, ListingViewHolder>(Listing.class, R.layout.listing_single_row, ListingViewHolder.class, query) {
 
@@ -130,6 +130,18 @@ public class FeaturedFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -149,7 +161,6 @@ public class FeaturedFragment extends Fragment {
             mDataRef = mData.getReference().child(mCurUser.getUid());
         }
 
-
         featuredRecView = view.findViewById(R.id. featured_listingRecView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setReverseLayout(false);
@@ -159,31 +170,15 @@ public class FeaturedFragment extends Fragment {
 
     }
 
-    public void getZipcode() {
 
-        mDataRef.child("profile").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("zipcode")) {
-                    Zipcode = dataSnapshot.child("zipcode").getValue().toString();
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private class DoSearch extends AsyncTask<String, Void, String> {
-
+    private class DoFeaturedSearch extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
-            getZipcode();
+
             try {
-                Document mainDoc = Jsoup.connect("https://classiccars.com/listings/find?auction=false&dealer=true&private=false&zip=" + Zipcode).get();
+                Document mainDoc = Jsoup.connect("https://classiccars.com/listings/find?auction=false&dealer=true&private=false&zip=" + strings[0]).get();
                 String[] items = mainDoc.getElementsByClass("search-result-info").text().split(" ");
                 int listingPageCount = Integer.parseInt(items[0]);
 

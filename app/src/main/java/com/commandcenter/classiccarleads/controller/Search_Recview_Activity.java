@@ -67,12 +67,12 @@ public class Search_Recview_Activity extends AppCompatActivity {
         if (mAuth != null) {
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
-            mUsers = mData.getReference().child(mCurUser.getUid()).child("query");
+            mUsers = mData.getReference().child(mCurUser.getUid());
         }else {
             mAuth = FirebaseAuth.getInstance();
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
-            mUsers = mData.getReference().child(mCurUser.getUid()).child("query");
+            mUsers = mData.getReference().child(mCurUser.getUid());
         }
 
         listingRecView = findViewById(R.id.search_activity_Recview);
@@ -84,7 +84,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
 
         new DoSearch().execute(queryDetails[0], queryDetails[1], queryDetails[2], queryDetails[3]);
 
-        Query query = mUsers;
+        Query query = mUsers.child("query");
         listingAdapter = new FirebaseRecyclerAdapter<Listing, ListingViewHolder>(Listing.class, R.layout.listing_single_row, ListingViewHolder.class, query) {
 
             @Override
@@ -172,11 +172,11 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                         dealer = new Dealer(dealerName, dealerWeb);
 
                                         Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
-                                        mUsers.child(id).setValue(listing);
+                                        mUsers.child("query").child(id).setValue(listing);
                                     }
                                 }else {
                                     Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
-                                    mUsers.child(id).setValue(listing);
+                                    mUsers.child("query").child(id).setValue(listing);
                                 }
                                 publishProgress((total * 100) / listingCount);
                                 total++;
@@ -229,11 +229,11 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                         dealer = new Dealer(dealerName, dealerWeb);
 
                                         Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
-                                        mUsers.child(id).setValue(listing);
+                                        mUsers.child("query").child(id).setValue(listing);
                                     }
                                 }else {
                                     Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
-                                    mUsers.child(id).setValue(listing);
+                                    mUsers.child("query").child(id).setValue(listing);
                                 }
                                 publishProgress((total * 100) / listingCount);
                                 total++;

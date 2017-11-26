@@ -28,6 +28,9 @@
     <string name="btn_save">Save</string>
     <string name="btn_clear">Clear</string>
     <string name="zipcode">Zipcode</string>
+    <string name="listingid">ListingID</string>
+    <string name="listing_title">Listing Title</string>
+    <string name="_price">Price</string>
 
     <string-array name="states">
         <item>Alabama</item>

@@ -32,10 +32,10 @@
                 android:id="@+id/listing_single_row_tv_listingID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ListingID"
+                android:text="@string/listingid"
                 android:textColor="@color/greyText"
                 android:textStyle="italic"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -47,36 +47,34 @@
                 android:id="@+id/listing_single_row_tv_listingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Listing Title"
+                android:text="@string/listing_title"
                 android:textColor="@color/greyText"
                 android:padding="2dp"
-                android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/listing_single_row_tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price"
+                    android:text="@string/price"
                     android:textStyle="italic"
                     android:textColor="@color/greyText"
-                    android:textSize="12sp" />
+                    android:textSize="14sp"
+                    android:padding="2dp"/>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
                 <TextView
                     android:id="@+id/listing_single_row_tv_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description"
+                    android:text="@string/description"
                     android:textStyle="italic"
                     android:textColor="@color/greyText"
-                    android:textSize="12sp"
-                    android:layout_marginTop="2dp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right">
-
-            </LinearLayout>
+                    android:textSize="14sp" />
+            </ScrollView>
 
 
         </LinearLayout>

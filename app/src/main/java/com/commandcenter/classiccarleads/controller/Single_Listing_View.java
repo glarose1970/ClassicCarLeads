@@ -94,19 +94,25 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
     }
 
     private void submitRequest(String name, String email) {
+
         Map<String, String> userDetails = new HashMap<>();
-        userDetails.put("dealer_name", dealerName);
-        userDetails.put("dealer_url", dealerUrl);
-        userDetails.put("name", name);
-        userDetails.put("email", email);
-        userDetails.put("phone", et_phone.getText().toString());
-        mDataRef.child("app_requests").child(dealerName).child(tv_listingID.getText().toString()).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                clearInputs();
-                Toast.makeText(Single_Listing_View.this, "Thank You for your interest in this listing\r\nWe will contact you soon!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (!TextUtils.isEmpty(name) || TextUtils.isEmpty(email)) {
+            userDetails.put("dealer_name", dealerName);
+            userDetails.put("dealer_url", dealerUrl);
+            userDetails.put("name", name);
+            userDetails.put("email", email);
+            userDetails.put("phone", et_phone.getText().toString());
+            mDataRef.child("app_requests").child(name).child(tv_listingID.getText().toString()).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    clearInputs();
+                    Toast.makeText(Single_Listing_View.this, "Thank You for your interest in this listing\r\nWe will contact you soon!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }else {
+            Toast.makeText(Single_Listing_View.this, "Name and Email Required!", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
