@@ -173,7 +173,7 @@ public class FeaturedFragment extends Fragment {
         featuredRecView.setLayoutManager(layoutManager);
         featuredRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-       // new DoFeaturedSearch().execute("");
+        new DoFeaturedSearch().execute("");
 
     }
 
@@ -211,7 +211,7 @@ public class FeaturedFragment extends Fragment {
 
                                 //load the main listing page to extract the listing details
                                 Document nodeDoc = Jsoup.connect("https://classiccars.com" + linkHref).get();
-                                String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
+                                String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").text();
 
                                 //listing details
                                 Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
