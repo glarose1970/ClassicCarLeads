@@ -6,6 +6,9 @@
     android:orientation="vertical"
     android:background="@drawable/layout_background">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +17,7 @@
         <ImageView
             android:id="@+id/single_listing_view_iv_mainImg"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
@@ -187,6 +190,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
+    </ScrollView>
 
 </RelativeLayout>
