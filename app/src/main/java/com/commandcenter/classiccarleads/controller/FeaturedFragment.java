@@ -155,14 +155,14 @@ public class FeaturedFragment extends Fragment {
             mData = FirebaseDatabase.getInstance();
             mCurUser = mAuth.getCurrentUser();
             mProfile = mData.getReference(mCurUser.getUid()).child("profile");
-            mDataRef = mData.getReference(mCurUser.getUid()).child("featured");
+            mDataRef = mData.getReference("featured");
 
         } else {
             mAuth = FirebaseAuth.getInstance();
             mData = FirebaseDatabase.getInstance();
             mCurUser = mAuth.getCurrentUser();
             mProfile = mData.getReference(mCurUser.getUid()).child("profile");
-            mDataRef = mData.getReference(mCurUser.getUid()).child("featured");
+            mDataRef = mData.getReference("featured");
         }
 
 
@@ -173,7 +173,7 @@ public class FeaturedFragment extends Fragment {
         featuredRecView.setLayoutManager(layoutManager);
         featuredRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        new DoFeaturedSearch().execute("");
+       // new DoFeaturedSearch().execute("");
 
     }
 
