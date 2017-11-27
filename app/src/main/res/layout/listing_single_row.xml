@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/listing_single_row_iv_listingImg"
-                android:layout_width="75dp"
-                android:layout_height="65dp"
+                android:layout_width="85dp"
+                android:layout_height="75dp"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
                 android:padding="2dp"/>
@@ -49,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/listing_title"
                 android:textColor="@color/greyText"
-                android:padding="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -61,7 +62,8 @@
                     android:textStyle="italic"
                     android:textColor="@color/greyText"
                     android:textSize="14sp"
-                    android:padding="2dp"/>
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="2dp"/>
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -73,7 +75,8 @@
                     android:text="@string/description"
                     android:textStyle="italic"
                     android:textColor="@color/greyText"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginLeft="2dp"/>
             </ScrollView>
 
 

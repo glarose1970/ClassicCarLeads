@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/single_listing_view_iv_mainImg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
@@ -67,7 +67,7 @@
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="65dp">
+                        android:layout_height="75dp">
 
                         <TextView
                             android:id="@+id/single_listing_view_tv_desc"
@@ -76,7 +76,7 @@
                             android:text="@string/description"
                             android:textSize="12sp"
                             android:textStyle="italic"
-                            android:paddingBottom="2dp"/>
+                            android:padding="2dp"/>
                     </ScrollView>
 
                 </LinearLayout>
@@ -89,7 +89,7 @@
             android:orientation="vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="0dp"
             android:background="@drawable/trans_white_rectangle">
 
             <LinearLayout

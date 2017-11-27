@@ -24,6 +24,7 @@ import com.commandcenter.classiccarleads.R;
 import com.commandcenter.classiccarleads.adapter.SectionsPageAdapter;
 import com.commandcenter.classiccarleads.model.Dealer;
 import com.commandcenter.classiccarleads.model.Listing;
+import com.commandcenter.classiccarleads.utils.VariableHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,19 +66,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth != null) {
             mData = FirebaseDatabase.getInstance();
-            mDataRef = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("profile");
+            mDataRef = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("profile").child("zipcode");
             mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid());
             mQuery = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("query");
             mQuery.removeValue();
-            getZipcode();
+
         }else {
             mAuth = FirebaseAuth.getInstance();
             mData = FirebaseDatabase.getInstance();
-            mDataRef = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("profile");
+            mDataRef = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("profile").child("zipcode");
             mUsers = mData.getReference().child(mAuth.getCurrentUser().getUid());
             mQuery = mData.getReference().child(mAuth.getCurrentUser().getUid()).child("query");
             mQuery.removeValue();
-            getZipcode();
+
         }
 
 
@@ -88,6 +89,17 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                MainActivityZipcode = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -115,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("zipcode")) {
-                    MainActivityZipcode = dataSnapshot.child("zipcode").getValue().toString();
+                    VariableHolder holder = new VariableHolder();
+                    holder.setZipcode(dataSnapshot.child("zipcode").getValue().toString());
                 }
             }
 
