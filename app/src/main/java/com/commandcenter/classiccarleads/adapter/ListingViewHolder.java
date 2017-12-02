@@ -13,14 +13,13 @@ import com.commandcenter.classiccarleads.R;
 
 public class ListingViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView tv_listingID, tv_title, tv_price, tv_desc;
+    public TextView tv_title, tv_price, tv_desc;
     public ImageView iv_listingImg;
     public View mView;
     public ListingViewHolder(View itemView) {
         super(itemView);
 
         mView = itemView;
-        tv_listingID = itemView.findViewById(R.id.listing_single_row_tv_listingID);
         tv_title = itemView.findViewById(R.id.listing_single_row_tv_listingTitle);
         tv_price = itemView.findViewById(R.id.listing_single_row_tv_price);
         tv_desc  = itemView.findViewById(R.id.listing_single_row_tv_desc);

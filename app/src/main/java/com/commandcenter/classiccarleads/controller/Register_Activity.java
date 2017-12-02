@@ -1,8 +1,11 @@
 package com.commandcenter.classiccarleads.controller;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -81,7 +84,7 @@ public class Register_Activity extends AppCompatActivity implements View.OnClick
 
         //==========INITIALIZE CONTROLS==========//
         findViewById(R.id.register_btnRegister).setOnClickListener(this);
-        findViewById(R.id.register_btnRegister).setOnClickListener(this);
+        findViewById(R.id.register_btnCancel).setOnClickListener(this);
         et_email    = findViewById(R.id.register_et_email);
         et_password = findViewById(R.id.register_et_password);
         et_zipcode  = findViewById(R.id.register_et_zipcode);
@@ -135,9 +138,29 @@ public class Register_Activity extends AppCompatActivity implements View.OnClick
 
                 break;
             case R.id.register_btnCancel:
-
+                buildAlert(this, "REGISTRATION DIALOG", "Are you sure you want to cancel the new account registration?");
                 break;
 
         }
+    }
+
+    private void buildAlert(Context ctx, String title, String message) {
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
+        alertBuilder.setTitle(title);
+        alertBuilder.setMessage(message);
+        alertBuilder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setNegativeButton(R.string.CANCEL, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertBuilder.create();
+        alertBuilder.show();
     }
 }

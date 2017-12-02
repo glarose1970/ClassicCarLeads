@@ -42,13 +42,14 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
     //==========CONTROLS==========//
     private ImageView iv_mainImg;
     private EditText et_name, et_email, et_phone;
-    private TextView tv_title, tv_price, tv_desc, tv_listingID;
+    private TextView tv_title, tv_price, tv_desc;
     private Button btn_submit, btn_cancel, btn_save;
     //==========END CONTROLS==========//
 
     //==========CLASS VARIABLES==========//
     private String dealerName;
     private String dealerUrl;
+    private String listingID;
     //==========END CLASS VARIABLES==========//
 
     private String[] details;
@@ -65,15 +66,15 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
             if (details.length > 5) {
                 dealerName = details[0];
                 dealerUrl = details[1];
+                listingID = details[3];
                 Picasso.with(this).load(details[2]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
                 tv_title.setText(details[4]);
-                tv_listingID.setText(details[3]);
                 tv_price.setText(details[5]);
                 tv_desc.setText(details[6]);
             }else {
                 Picasso.with(this).load(details[0]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
+                listingID = details[1];
                 tv_title.setText(details[2]);
-                tv_listingID.setText(details[1]);
                 tv_price.setText(details[3]);
                 tv_desc.setText(details[4]);
             }
@@ -102,7 +103,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
             userDetails.put("name", name);
             userDetails.put("email", email);
             userDetails.put("phone", et_phone.getText().toString());
-            mDataRef.child("app_requests").child(name).child(tv_listingID.getText().toString()).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+            mDataRef.child("app_requests").child(name).child(listingID).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     clearInputs();
@@ -136,7 +137,6 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         tv_title     = findViewById(R.id.single_listing_view_tv_title);
         tv_price     = findViewById(R.id.single_listing_view_tv_price);
         tv_desc      = findViewById(R.id.single_listing_view_tv_desc);
-        tv_listingID = findViewById(R.id.single_listing_view_tv_listingID);
         findViewById(R.id.single_listing_view_btn_Submit).setOnClickListener(this);
         findViewById(R.id.single_listing_view_btn_Cancel).setOnClickListener(this);
         findViewById(R.id.single_listing_view_btn_save).setOnClickListener(this);

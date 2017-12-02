@@ -56,7 +56,6 @@ public class SavedSearchFragment extends Fragment{
             protected void populateViewHolder(ListingViewHolder viewHolder, final Listing listing, int position) {
 
                 Picasso.with(getContext()).load(listing.getImg_url()).placeholder(R.drawable.ic_warning).into(viewHolder.iv_listingImg);
-                viewHolder.tv_listingID.setText(listing.getListingID());
                 viewHolder.tv_title.setText(listing.getTitle());
                 viewHolder.tv_price.setText(listing.getPrice());
                 viewHolder.tv_desc.setText(listing.getDesc());
@@ -78,7 +77,7 @@ public class SavedSearchFragment extends Fragment{
             public void onChildChanged(EventType type, DataSnapshot snapshot, int index, int oldIndex) {
                 super.onChildChanged(type, snapshot, index, oldIndex);
 
-                listingRecView.scrollToPosition(index);
+                listingRecView.scrollToPosition(0);
             }
         };
         listingRecView.setAdapter(listingAdapter);

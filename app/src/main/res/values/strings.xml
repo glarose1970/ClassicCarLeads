@@ -31,6 +31,8 @@
     <string name="listingid">ListingID</string>
     <string name="listing_title">Listing Title</string>
     <string name="_price">Price</string>
+    <string name="OK">OK</string>
+    <string name="CANCEL">CANCEL</string>
 
     <string-array name="states">
         <item>Alabama</item>
@@ -43,16 +45,66 @@
         <item>Deleware</item>
         <item>Florida</item>
         <item>Georgia</item>
+        <item>Hawaii</item>
+        <item>Idaho</item>
+        <item>Illinois</item>
+        <item>Indiana</item>
+        <item>Iowa</item>
+        <item>Kansas</item>
+        <item>Kentucky</item>
+        <item>Louisiana</item>
+        <item>Maine</item>
+        <item>Maryland</item>
+        <item>Massachusetts</item>
+        <item>Michigan</item>
+        <item>Minnesota</item>
+        <item>Mississippi</item>
+        <item>Missouri</item>
+        <item>Montana</item>
+        <item>Nebraska</item>
+        <item>Nevada</item>
+        <item>New Hampshire</item>
+        <item>New Jersey</item>
+        <item>New Mexico</item>
+        <item>New York</item>
+        <item>North Carolina</item>
+        <item>North Dakota</item>
+        <item>Ohio</item>
+        <item>Oklahoma</item>
+        <item>Oregon</item>
+        <item>Pennsylvania</item>
+        <item>Rhode Island</item>
+        <item>South Carolina</item>
+        <item>South Dakota</item>
+        <item>Tennessee</item>
+        <item>Texas</item>
+        <item>Utah</item>
+        <item>Vermont</item>
+        <item>Virginia</item>
+        <item>Washington</item>
+        <item>West Virginia</item>
+        <item>Wisconsin</item>
+        <item>Wyoming</item>
     </string-array>
 
     <array name="makes">
         <item>Ford</item>
-        <item>Checvrolet</item>
+        <item>Chevrolet</item>
         <item>Buick</item>
         <item>BMW</item>
+        <item>Dodge</item>
+        <item>Plymouth</item>
+        <item>Chrysler</item>
+        <item>GMC</item>
+        <item>Rolls Royce</item>
+        <item>Volkswagon</item>
     </array>
 
     <array name="models">
+        <item>Camero</item>
+        <item>Corvette</item>
+        <item>Challenger</item>
+        <item>Charger</item>
         <item>Mustang</item>
         <item>F-150</item>
         <item>Thunderbird</item>

@@ -49,6 +49,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
     private FirebaseUser mCurUser;
     private FirebaseDatabase mData;
     private DatabaseReference mUsers;
+    private DatabaseReference mEventLog;
     private FirebaseRecyclerAdapter listingAdapter;
     //==========END FIREBASE==========//
 
@@ -68,11 +69,13 @@ public class Search_Recview_Activity extends AppCompatActivity {
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
             mUsers = mData.getReference().child(mCurUser.getUid());
+            mEventLog = mData.getReference().child("event_log");
         }else {
             mAuth = FirebaseAuth.getInstance();
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
             mUsers = mData.getReference().child(mCurUser.getUid());
+            mEventLog = mData.getReference().child("event_log");
         }
 
         listingRecView = findViewById(R.id.search_activity_Recview);
@@ -91,7 +94,6 @@ public class Search_Recview_Activity extends AppCompatActivity {
             protected void populateViewHolder(ListingViewHolder viewHolder, final Listing listing, int position) {
 
                 Picasso.with(Search_Recview_Activity.this).load(listing.getImg_url()).placeholder(R.drawable.ic_warning).into(viewHolder.iv_listingImg);
-                viewHolder.tv_listingID.setText(listing.getListingID());
                 viewHolder.tv_title.setText(listing.getTitle());
                 viewHolder.tv_price.setText(listing.getPrice());
                 viewHolder.tv_desc.setText(listing.getDesc());
@@ -113,9 +115,10 @@ public class Search_Recview_Activity extends AppCompatActivity {
             public void onChildChanged(EventType type, DataSnapshot snapshot, int index, int oldIndex) {
                 super.onChildChanged(type, snapshot, index, oldIndex);
 
-                listingRecView.scrollToPosition(index);
+                listingRecView.scrollToPosition(0);
             }
         };
+
         listingRecView.setAdapter(listingAdapter);
     }
 
@@ -147,7 +150,8 @@ public class Search_Recview_Activity extends AppCompatActivity {
                         if (listingNodes != null) {
                             for (Element node : listingNodes) {
                                 //get title, imgLink and id here.
-                                Element link = listingNodes.select("a").first();
+                               // String link = node.getElementById("listing-content").attr("data-listing-url");
+                                Element link = node.select("a").first();
                                 String linkHref = link.attr("href");
                                 String imgLink = node.select("[src]").attr("src");
                                 String title = node.getElementsByClass("item-ymm").text();
@@ -187,6 +191,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                     pDialog.dismiss();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    mEventLog.child("error_log").child(mCurUser.getUid()).setValue(e.getMessage());
                 }
             }else {
                 String base_url = "https://classiccars.com/listings/find/" + strings[0] + "/" + strings[1] + "/" + strings[2] + "?auction=false&dealer=true&private=false";
@@ -198,51 +203,58 @@ public class Search_Recview_Activity extends AppCompatActivity {
                     count = String.valueOf(listingCount);
                     int total = 0;
                     for (int i = 1; i < listingCount - 1; i++) {
-                        String pageUrl =  "https://classiccars.com/listings/find/" + strings[0] + "/" + strings[1] + "/" + strings[2] + "?auction=false&dealer=true&p=" + i + "&private=false";
-                        mainDoc = Jsoup.connect(pageUrl).get();
-                        Elements listingNodes = mainDoc.getElementsByClass("search-result-item");
-                        if (listingNodes != null) {
-                            for (Element node : listingNodes) {
-                                //get title, imgLink and id here.
-                                Element link = listingNodes.select("a").first();
-                                String linkHref = link.attr("href");
-                                String imgLink = node.select("[src]").attr("src");
-                                String title = node.getElementsByClass("item-ymm").text();
-                                String id = node.getElementsByClass("item-stock-no").text();
-                                String desc = node.getElementsByClass("item-desc").text();
-                                String price = node.getElementsByClass("item-price").text();
+                        String pageUrl = "https://classiccars.com/listings/find/" + strings[0] + "/" + strings[1] + "/" + strings[2] + "?auction=false&dealer=true&p=" + i + "&private=false";
+                        try {
+                            mainDoc = Jsoup.connect(pageUrl).get();
+                            Elements listingNodes = mainDoc.getElementsByClass("search-result-item");
+                            if (listingNodes != null) {
+                                for (Element node : listingNodes) {
+                                    //get title, imgLink and id here.
+                                    Element link = listingNodes.select("a").first();
+                                    String linkHref = link.attr("href");
+                                    String imgLink = node.select("[src]").attr("src");
+                                    String title = node.getElementsByClass("item-ymm").text();
+                                    String id = node.getElementsByClass("item-stock-no").text();
+                                    String desc = node.getElementsByClass("item-desc").text();
+                                    String price = node.getElementsByClass("item-price").text();
 
-                                //load the main listing page to extract the listing details
-                                Document nodeDoc = Jsoup.connect("https://classiccars.com" + linkHref).get();
-                                //listing details
-                                Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
-                                Elements liNode = ulNode.select("li");
+                                    //load the main listing page to extract the listing details
+                                    Document nodeDoc = Jsoup.connect("https://classiccars.com" + linkHref).get();
+                                    //listing details
+                                    Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
+                                    Elements liNode = ulNode.select("li");
 
-                                String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
-                                //dealer info
-                                Element dealerInfoNode = nodeDoc.getElementById("seller-info");
-                                Elements dealerLi = dealerInfoNode.select("li");
-                                if (dealerInfoNode != null) {
-                                    if (dealerLi.size() >= 3) {
-                                        String dealerName = dealerLi.get(0).text();
-                                        String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
-                                        dealer = new Dealer(dealerName, dealerWeb);
+                                    String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
+                                    //dealer info
+                                    Element dealerInfoNode = nodeDoc.getElementById("seller-info");
+                                    Elements dealerLi = dealerInfoNode.select("li");
+                                    if (dealerInfoNode != null) {
+                                        if (dealerLi.size() >= 3) {
+                                            String dealerName = dealerLi.get(0).text();
+                                            String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
+                                            dealer = new Dealer(dealerName, dealerWeb);
 
-                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
+                                            Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
+                                            mUsers.child("query").child(id).setValue(listing);
+                                        }
+                                    } else {
+                                        Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
                                         mUsers.child("query").child(id).setValue(listing);
                                     }
-                                }else {
-                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
-                                    mUsers.child("query").child(id).setValue(listing);
+                                    publishProgress((total * 100) / listingCount);
+                                    total++;
                                 }
-                                publishProgress((total * 100) / listingCount);
-                                total++;
                             }
+                        }catch (Exception e){
+                            mEventLog.child("error_log").child(mCurUser.getUid()).setValue(e.getMessage());
+                            continue;
                         }
                     }
                     pDialog.dismiss();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    mEventLog.child("error_log").child(mCurUser.getUid()).setValue(e.getMessage());
+
                 }
             }
             return totalListing;
