@@ -100,7 +100,7 @@ public class FeaturedFragment extends Fragment {
                 viewHolder.tv_title.setText(listing.getTitle());
                 viewHolder.tv_price.setText(listing.getPrice());
                 viewHolder.tv_desc.setText(listing.getDesc());
-
+                viewHolder.btn_remove.setVisibility(View.INVISIBLE);
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

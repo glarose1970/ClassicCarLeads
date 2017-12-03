@@ -210,7 +210,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                             if (listingNodes != null) {
                                 for (Element node : listingNodes) {
                                     //get title, imgLink and id here.
-                                    Element link = listingNodes.select("a").first();
+                                    Element link = node.select("a").first();
                                     String linkHref = link.attr("href");
                                     String imgLink = node.select("[src]").attr("src");
                                     String title = node.getElementsByClass("item-ymm").text();
