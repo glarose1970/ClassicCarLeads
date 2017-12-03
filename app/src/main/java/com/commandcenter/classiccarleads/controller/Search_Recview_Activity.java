@@ -97,12 +97,13 @@ public class Search_Recview_Activity extends AppCompatActivity {
                 viewHolder.tv_title.setText(listing.getTitle());
                 viewHolder.tv_price.setText(listing.getPrice());
                 viewHolder.tv_desc.setText(listing.getDesc());
-
+                viewHolder.tv_loc.setText(listing.getLocation());
+                viewHolder.btn_remove.setVisibility(View.INVISIBLE);
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        String[] details = new String[] { listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getLong_desc() };
+                        String[] details = new String[] { listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getLong_desc(), listing.getLocation()};
                         Intent intent = new Intent(Search_Recview_Activity.this, Single_Listing_View.class);
                         intent.putExtra("details", details);
                         startActivity(intent);
@@ -155,7 +156,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                 String linkHref = link.attr("href");
                                 String imgLink = node.select("[src]").attr("src");
                                 String title = node.getElementsByClass("item-ymm").text();
-                                String id = node.getElementsByClass("item-stock-no").text();
+                                String id = node.getElementsByClass("item-stock-no").text().replace("(", "").replace(")", "");
                                 String desc = node.getElementsByClass("item-desc").text();
                                 String price = node.getElementsByClass("item-price").text();
 
@@ -166,6 +167,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                 Elements liNode = ulNode.select("li");
 
                                 String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
+                                String loc = liNode.get(2).getElementsByClass("detail-value").text();
                                 //dealer info
                                 Element dealerInfoNode = nodeDoc.getElementById("seller-info");
                                 Elements dealerLi = dealerInfoNode.select("li");
@@ -175,11 +177,11 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                         String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
                                         dealer = new Dealer(dealerName, dealerWeb);
 
-                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
+                                        Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, loc);
                                         mUsers.child("query").child(id).setValue(listing);
                                     }
                                 }else {
-                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
+                                    Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, loc);
                                     mUsers.child("query").child(id).setValue(listing);
                                 }
                                 publishProgress((total * 100) / listingCount);
@@ -225,6 +227,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                     Elements liNode = ulNode.select("li");
 
                                     String long_desc = nodeDoc.getElementsByClass("vehicle-description").select("p").get(0).text();
+                                    String loc = liNode.get(2).getElementsByClass("detail-value").text();
                                     //dealer info
                                     Element dealerInfoNode = nodeDoc.getElementById("seller-info");
                                     Elements dealerLi = dealerInfoNode.select("li");
@@ -234,11 +237,11 @@ public class Search_Recview_Activity extends AppCompatActivity {
                                             String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
                                             dealer = new Dealer(dealerName, dealerWeb);
 
-                                            Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
+                                            Listing listing = new Listing(dealer, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, loc);
                                             mUsers.child("query").child(id).setValue(listing);
                                         }
                                     } else {
-                                        Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, strings[3]);
+                                        Listing listing = new Listing(null, id, imgLink, title, strings[2], strings[1], strings[0], price, desc, long_desc, loc);
                                         mUsers.child("query").child(id).setValue(listing);
                                     }
                                     publishProgress((total * 100) / listingCount);

@@ -100,12 +100,13 @@ public class FeaturedFragment extends Fragment {
                 viewHolder.tv_title.setText(listing.getTitle());
                 viewHolder.tv_price.setText(listing.getPrice());
                 viewHolder.tv_desc.setText(listing.getDesc());
+                viewHolder.tv_loc.setText(listing.getLocation());
                 viewHolder.btn_remove.setVisibility(View.INVISIBLE);
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        String[] details = new String[]{listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getLong_desc()};
+                        String[] details = new String[]{listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(), listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getLong_desc(), listing.getLocation()};
                         Intent intent = new Intent(getContext(), Single_Listing_View.class);
                         intent.putExtra("details", details);
                         startActivity(intent);
@@ -172,7 +173,7 @@ public class FeaturedFragment extends Fragment {
         featuredRecView.setLayoutManager(layoutManager);
         featuredRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        //new DoFeaturedSearch().execute("");
+        new DoFeaturedSearch().execute("");
 
     }
 
@@ -215,6 +216,7 @@ public class FeaturedFragment extends Fragment {
                                 //listing details
                                 Elements ulNode = nodeDoc.select("div.vehicle-details > ul");
                                 Elements liNode = ulNode.select("li");
+                                String loc = liNode.get(2).getElementsByClass("detail-value").text();
                                 String year = liNode.get(3).getElementsByClass("detail-value").text();
                                 String make = liNode.get(4).getElementsByClass("detail-value").text();
                                 String model = liNode.get(5).getElementsByClass("detail-value").text();
@@ -228,11 +230,11 @@ public class FeaturedFragment extends Fragment {
                                         String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
                                         Dealer dealer = new Dealer(dealerName, dealerWeb);
 
-                                        Listing listing = new Listing(dealer, id, imgLink, title, make, model, year, price, desc, long_desc, strings[0]);
+                                        Listing listing = new Listing(dealer, id, imgLink, title, make, model, year, price, desc, long_desc, loc);
                                         mDataRef.child(id).setValue(listing);
                                     }
                                 }else {
-                                    Listing listing = new Listing(null, id, imgLink, title, make, model, year, price, desc, long_desc, strings[3]);
+                                    Listing listing = new Listing(null, id, imgLink, title, make, model, year, price, desc, long_desc, loc);
                                     mDataRef.child(id).setValue(listing);
                                 }
                             }

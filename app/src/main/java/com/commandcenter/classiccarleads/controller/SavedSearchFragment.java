@@ -59,6 +59,7 @@ public class SavedSearchFragment extends Fragment{
                 viewHolder.tv_title.setText(listing.getTitle());
                 viewHolder.tv_price.setText(listing.getPrice());
                 viewHolder.tv_desc.setText(listing.getDesc());
+                viewHolder.tv_loc.setText((listing.getLocation()));
                 viewHolder.btn_remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

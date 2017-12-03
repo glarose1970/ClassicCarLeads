@@ -42,7 +42,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
     //==========CONTROLS==========//
     private ImageView iv_mainImg;
     private EditText et_name, et_email, et_phone;
-    private TextView tv_title, tv_price, tv_desc;
+    private TextView tv_title, tv_price, tv_desc, tv_loc;
     private Button btn_submit, btn_cancel, btn_save;
     //==========END CONTROLS==========//
 
@@ -63,7 +63,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         Init();
 
         if (details != null) {
-            if (details.length > 5) {
+            if (details.length > 6) {
                 dealerName = details[0];
                 dealerUrl = details[1];
                 listingID = details[3];
@@ -71,12 +71,14 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 tv_title.setText(details[4]);
                 tv_price.setText(details[5]);
                 tv_desc.setText(details[6]);
+               // tv_loc.setText("test");
             }else {
                 Picasso.with(this).load(details[0]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
                 listingID = details[1];
                 tv_title.setText(details[2]);
                 tv_price.setText(details[3]);
                 tv_desc.setText(details[4]);
+              //  tv_loc.setText("test");
             }
 
         }
@@ -137,6 +139,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         tv_title     = findViewById(R.id.single_listing_view_tv_title);
         tv_price     = findViewById(R.id.single_listing_view_tv_price);
         tv_desc      = findViewById(R.id.single_listing_view_tv_desc);
+       // tv_loc       = findViewById(R.id.listing_single_row_tv_location);
         findViewById(R.id.single_listing_view_btn_Submit).setOnClickListener(this);
         findViewById(R.id.single_listing_view_btn_Cancel).setOnClickListener(this);
         findViewById(R.id.single_listing_view_btn_save).setOnClickListener(this);
@@ -151,17 +154,20 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
             case R.id.single_listing_view_btn_save:
                 // save the listing to the database
                 Map listingMap = new HashMap();
-                listingMap.put("img_url", details[2]);
-                listingMap.put("listingID", details[3]);
-                listingMap.put("desc", details[6]);
-                listingMap.put("title", details[4]);
-                listingMap.put("price", details[5]);
-                mDataRef.child("saved_searches").child(details[3]).setValue(listingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        buildAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to your history");
-                    }
-                });
+                if (details.length >= 6) {
+                    listingMap.put("img_url", details[2]);
+                    listingMap.put("listingID", details[3]);
+                    listingMap.put("desc", details[6]);
+                    listingMap.put("title", details[4]);
+                    listingMap.put("price", details[5]);
+                    listingMap.put("location", details[7]);
+                    mDataRef.child("saved_searches").child(details[3]).setValue(listingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            buildAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to your history");
+                        }
+                    });
+                }
                 break;
             case R.id.single_listing_view_btn_Submit:
                 if (TextUtils.isEmpty(et_name.getText().toString()) || TextUtils.isEmpty(et_email.getText().toString())) {
