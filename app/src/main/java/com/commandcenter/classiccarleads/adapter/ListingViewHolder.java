@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.commandcenter.classiccarleads.R;
@@ -14,6 +15,7 @@ import com.commandcenter.classiccarleads.R;
 
 public class ListingViewHolder extends RecyclerView.ViewHolder{
 
+    public LinearLayout main_background;
     public TextView tv_title, tv_price, tv_desc, tv_loc;
     public ImageView iv_listingImg;
     public Button btn_remove;
@@ -22,6 +24,7 @@ public class ListingViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
 
         mView = itemView;
+        main_background = itemView.findViewById(R.id.listing_single_row_main_background);
         tv_title = itemView.findViewById(R.id.listing_single_row_tv_listingTitle);
         tv_price = itemView.findViewById(R.id.listing_single_row_tv_price);
         tv_desc  = itemView.findViewById(R.id.listing_single_row_tv_desc);

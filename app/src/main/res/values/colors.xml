@@ -7,4 +7,5 @@
     <color name="listingBackgroundStart">#fceedb</color>
     <color name="listingBackgroundEnd">#d9c6ad</color>
     <color name="greyText">#5f5f60</color>
+    <color name="featured_listing_background">#BEEB9F</color>
 </resources>

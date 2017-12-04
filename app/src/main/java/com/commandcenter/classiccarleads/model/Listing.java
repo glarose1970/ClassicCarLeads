@@ -18,6 +18,7 @@ public class Listing {
     private String desc;
     private String location;
     private String long_desc;
+    private boolean isFeatured;
     //==========END PRIVATE FIELDS==========//
 
     //==========CONSTRUCTOR==========//
@@ -33,7 +34,7 @@ public class Listing {
         this.long_desc = long_desc;
     }
 
-    public Listing(Dealer dealerInfo, String listingID, String img_url, String title, String make, String model, String year, String price, String desc, String long_desc, String location) {
+    public Listing(Dealer dealerInfo, String listingID, String img_url, String title, String make, String model, String year, String price, String desc, String long_desc, String location, boolean isFeatured) {
         this.dealerInfo = dealerInfo;
         this.listingID = listingID;
         this.img_url = img_url;
@@ -45,11 +46,18 @@ public class Listing {
         this.desc = desc;
         this.long_desc = long_desc;
         this.location = location;
+        this.isFeatured = isFeatured;
     }
     //==========END CONSTRUCTOR==========//
 
     //==========GETTER/SETTER==========//
+    public boolean isFeatured() {
+        return isFeatured;
+    }
 
+    public void setFeatured(boolean featured) {
+        isFeatured = featured;
+    }
 
     public String getLong_desc() {
         return long_desc;

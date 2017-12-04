@@ -173,7 +173,7 @@ public class FeaturedFragment extends Fragment {
         featuredRecView.setLayoutManager(layoutManager);
         featuredRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        new DoFeaturedSearch().execute("");
+        //new DoFeaturedSearch().execute("");
 
     }
 
@@ -205,7 +205,7 @@ public class FeaturedFragment extends Fragment {
                                 String linkHref = link.attr("href");
                                 String imgLink = node.select("[src]").attr("src");
                                 String title = node.getElementsByClass("item-ymm").text();
-                                String id = node.getElementsByClass("item-stock-no").text();
+                                String id = node.getElementsByClass("item-stock-no").text().replace("(", "").replace(")", "");
                                 String desc = node.getElementsByClass("item-desc").text();
                                 String price = node.getElementsByClass("item-price").text();
 
@@ -230,11 +230,11 @@ public class FeaturedFragment extends Fragment {
                                         String dealerWeb = dealerLi.get(dealerLi.size() - 1).select("a").attr("href");
                                         Dealer dealer = new Dealer(dealerName, dealerWeb);
 
-                                        Listing listing = new Listing(dealer, id, imgLink, title, make, model, year, price, desc, long_desc, loc);
+                                        Listing listing = new Listing(dealer, id, imgLink, title, make, model, year, price, desc, long_desc, loc, true);
                                         mDataRef.child(id).setValue(listing);
                                     }
                                 }else {
-                                    Listing listing = new Listing(null, id, imgLink, title, make, model, year, price, desc, long_desc, loc);
+                                    Listing listing = new Listing(null, id, imgLink, title, make, model, year, price, desc, long_desc, loc, true);
                                     mDataRef.child(id).setValue(listing);
                                 }
                             }
@@ -243,7 +243,7 @@ public class FeaturedFragment extends Fragment {
                       } else {
                         //  pDialog.dismiss();
                         return null;
-                    }
+                     }
                     }
 
             } catch (IOException e) {
