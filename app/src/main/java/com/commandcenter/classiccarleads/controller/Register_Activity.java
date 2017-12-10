@@ -1,5 +1,6 @@
 package com.commandcenter.classiccarleads.controller;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -152,12 +153,12 @@ public class Register_Activity extends AppCompatActivity implements View.OnClick
         alertBuilder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                System.exit(0);
             }
         }).setNegativeButton(R.string.CANCEL, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                et_email.requestFocus();
             }
         });
         alertBuilder.create();

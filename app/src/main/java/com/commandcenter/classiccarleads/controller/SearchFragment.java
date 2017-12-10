@@ -84,6 +84,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         spinner_year = view.findViewById(R.id.search_fragment_spinner_year);
         view.findViewById(R.id.search_fragment_btn_cancel).setOnClickListener(SearchFragment.this);
         view.findViewById(R.id.search_fragment_btn_search).setOnClickListener(SearchFragment.this);
+        view.findViewById(R.id.search_fragment_btn_clear).setOnClickListener(SearchFragment.this);
         //et_make = view.findViewById(R.id.search_fragment_et_make);
         //et_model = view.findViewById(R.id.search_fragment_et_model);
         //et_location = view.findViewById(R.id.search_fragment_et_location);
@@ -143,22 +144,26 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             case R.id.search_fragment_btn_search:
                 if (TextUtils.isEmpty(tv_autoMake.getText().toString()) || TextUtils.isEmpty(tv_autoModel.getText().toString()) || spinner_year.getSelectedItem().toString() == "") {
                     Toast.makeText(getContext(), "All Fields Required", Toast.LENGTH_SHORT).show();
-                }else {
-                     String make = tv_autoMake.getText().toString();
-                     String model = tv_autoModel.getText().toString();
-                     String loc = tv_autoLoc.getText().toString();
-                     String year = spinner_year.getSelectedItem().toString();
-                     Intent intent = new Intent(getContext(), Search_Recview_Activity.class);
-                     String[] query = new String[] { year, make, model, loc };
-                     intent.putExtra("query", query);
-                     startActivity(intent);
+                } else {
+                    String make = tv_autoMake.getText().toString();
+                    String model = tv_autoModel.getText().toString();
+                    String loc = tv_autoLoc.getText().toString();
+                    String year = spinner_year.getSelectedItem().toString();
+                    Intent intent = new Intent(getContext(), Search_Recview_Activity.class);
+                    String[] query = new String[]{year, make, model, loc};
+                    intent.putExtra("query", query);
+                    startActivity(intent);
 
                 }
+             break;
+
+            case R.id.search_fragment_btn_clear:
+                clearInput();
                 break;
             case R.id.search_fragment_btn_cancel:
                 clearInput();
+             break;
 
-                break;
         }
     }
 

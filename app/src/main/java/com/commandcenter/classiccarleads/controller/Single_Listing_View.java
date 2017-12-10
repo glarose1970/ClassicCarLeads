@@ -164,7 +164,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                     mDataRef.child("saved_searches").child(details[3]).setValue(listingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            buildAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to your history");
+                            buildBasicAlert(Single_Listing_View.this, "SAVE", "Listing has been saved to your history");
                         }
                     });
                 }
@@ -180,22 +180,47 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case R.id.single_listing_view_btn_Cancel:
-
+                    buildAlert(this, "REQUEST INFO", "are you sure you want to cancel the REQUEST INFO?", "YES", "NO");
                 break;
         }
     }
 
-    private void buildAlert(Context context, String title, String message) {
+    private void buildBasicAlert(Context context, String title, String message) {
 
-        new AlertDialog.Builder(context)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle(title);
+        alert.setMessage(message);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                }).show();
+            }
+        });
+        alert.create();
+        alert.show();
+    }
 
+    private void buildAlert(Context context, String title, String message, String pButton, String nButton) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle(title);
+        alert.setMessage(message);
+        alert.setPositiveButton(pButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                et_email.setText("");
+                et_name.setText("");
+                et_phone.setText("");
+                et_email.requestFocus();
+
+            }
+        }).setNegativeButton(nButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert.create();
+        alert.show();
     }
 }

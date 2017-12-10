@@ -108,6 +108,7 @@ public class Search_Recview_Activity extends AppCompatActivity {
                 viewHolder.btn_remove.setVisibility(View.INVISIBLE);
                 if (listing.isFeatured()) {
                     viewHolder.main_background.setBackgroundResource(R.color.featured_listing_background);
+
                 }
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
