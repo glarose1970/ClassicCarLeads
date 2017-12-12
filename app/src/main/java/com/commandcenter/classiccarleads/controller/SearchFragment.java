@@ -85,9 +85,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         view.findViewById(R.id.search_fragment_btn_cancel).setOnClickListener(SearchFragment.this);
         view.findViewById(R.id.search_fragment_btn_search).setOnClickListener(SearchFragment.this);
         view.findViewById(R.id.search_fragment_btn_clear).setOnClickListener(SearchFragment.this);
-        //et_make = view.findViewById(R.id.search_fragment_et_make);
-        //et_model = view.findViewById(R.id.search_fragment_et_model);
-        //et_location = view.findViewById(R.id.search_fragment_et_location);
         ArrayAdapter<String> statesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.states));
         ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.makes));
         ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.models));
@@ -179,5 +176,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         tv_autoModel.setText("");
         tv_autoMake.setText("");
         tv_autoLoc.setText("");
+        spinner_year.setSelection(0);
     }
 }

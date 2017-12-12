@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -58,18 +59,6 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     private void Init() {
 
         //==========INITIALIZE FIREBASE==========//
@@ -86,30 +75,35 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
     
     private void Login(String email, String password) {
 
-        loginProgress = new ProgressDialog(this);
-        loginProgress.setTitle("Signing In!");
-        loginProgress.setMessage("Please wait while you are signed in!");
-        loginProgress.setCanceledOnTouchOutside(false);
-        loginProgress.show();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInUserWithEmail: Success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            loginProgress.dismiss();
-                            Intent mainIntent = new Intent(Login_Activity.this, MainActivity.class);
-                            startActivity(mainIntent);
-                            finish();
-                        }else {
-                            Log.d(TAG, "signInUserWithEmail: Failure", task.getException());
-                            loginProgress.dismiss();
-                            Toast.makeText(Login_Activity.this, "Authentication Failed.\r\n Please Register New Account.", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(et_email.getText().toString()) || TextUtils.isEmpty(et_password.getText().toString())) {
+            Toast.makeText(this, "Email and Password Fields Required!", Toast.LENGTH_SHORT).show();
+        }else {
+            loginProgress = new ProgressDialog(this);
+            loginProgress.setTitle("Signing In!");
+            loginProgress.setMessage("Please wait while you are signed in!");
+            loginProgress.setCanceledOnTouchOutside(false);
+            loginProgress.show();
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "signInUserWithEmail: Success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                loginProgress.dismiss();
+                                Intent mainIntent = new Intent(Login_Activity.this, MainActivity.class);
+                                startActivity(mainIntent);
+                                finish();
+                            }else {
+                                Log.d(TAG, "signInUserWithEmail: Failure", task.getException());
+                                loginProgress.dismiss();
+                                Toast.makeText(Login_Activity.this, "Authentication Failed.\r\n Please Register New Account.", Toast.LENGTH_SHORT).show();
 
+                            }
                         }
-                    }
-                });
+                    }); 
+        }
+       
     }
 
     @Override

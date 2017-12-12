@@ -106,13 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
-
     //==========SETUP VIEW PAGER==========//
     private void setUpViewPager(ViewPager viewPager) {
 

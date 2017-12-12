@@ -115,7 +115,6 @@ public class FeaturedFragment extends Fragment {
 
             }
 
-
             @Override
             public void onChildChanged(EventType type, DataSnapshot snapshot, int index, int oldIndex) {
                 super.onChildChanged(type, snapshot, index, oldIndex);
@@ -127,26 +126,6 @@ public class FeaturedFragment extends Fragment {
 
         return view;
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
-    }
-
 
     private void Init(View view) {
 
@@ -173,15 +152,15 @@ public class FeaturedFragment extends Fragment {
         featuredRecView.setLayoutManager(layoutManager);
         featuredRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
+        //this loads the featured listings on the website
+        //we will only load these when there is none that we put there.
+
         //new DoFeaturedSearch().execute("");
 
     }
 
     private class DoFeaturedSearch extends AsyncTask<String, Void, String> {
 
-        //==========PROGRESSDIALOG==========//
-       // private ProgressDialog pDialog;
-        //==========END PROGRESSDIALOG==========//
         @Override
         protected String doInBackground(String... strings) {
 
@@ -241,7 +220,6 @@ public class FeaturedFragment extends Fragment {
                         }
                         count++;
                       } else {
-                        //  pDialog.dismiss();
                         return null;
                      }
                     }
@@ -255,17 +233,13 @@ public class FeaturedFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-          /*  pDialog = new ProgressDialog(getActivity());
-            pDialog.setTitle("Loading Featured Listings");
-            pDialog.setMessage("Please wait while the Featured Listings are Loaded...");
-            pDialog.setCanceledOnTouchOutside(false);
-            pDialog.show();*/
+
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-           // pDialog.dismiss();
+
         }
     }
 }

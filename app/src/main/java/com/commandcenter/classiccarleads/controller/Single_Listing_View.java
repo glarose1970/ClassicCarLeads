@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -180,7 +181,8 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case R.id.single_listing_view_btn_Cancel:
-                    buildAlert(this, "REQUEST INFO", "are you sure you want to cancel the REQUEST INFO?", "YES", "NO");
+
+                buildAlert(this, "REQUEST INFO", "are you sure you want to cancel the REQUEST INFO?", "YES", "NO");
                 break;
         }
     }
@@ -208,10 +210,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         alert.setPositiveButton(pButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                et_email.setText("");
-                et_name.setText("");
-                et_phone.setText("");
-                et_email.requestFocus();
+                clearInputs();
 
             }
         }).setNegativeButton(nButton, new DialogInterface.OnClickListener() {
@@ -224,3 +223,13 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         alert.show();
     }
 }
+
+
+
+
+
+
+
+
+
+
