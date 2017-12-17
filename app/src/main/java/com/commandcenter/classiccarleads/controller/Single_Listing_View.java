@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.commandcenter.classiccarleads.R;
 import com.commandcenter.classiccarleads.model.Dealer;
 import com.commandcenter.classiccarleads.model.Listing;
+import com.commandcenter.classiccarleads.model.Request;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
     private FirebaseAuth mAuth;
     private FirebaseDatabase mData;
     private DatabaseReference mDataRef;
+    private DatabaseReference mAppRequests;
     private FirebaseUser mCurUser;
     //==========END FIREBASE==========//
 
@@ -51,6 +53,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
     private String dealerName;
     private String dealerUrl;
     private String listingID;
+    private String title;
     //==========END CLASS VARIABLES==========//
 
     private String[] details;
@@ -69,6 +72,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 dealerUrl = details[1];
                 listingID = details[3];
                 Picasso.with(this).load(details[2]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
+                title = details[4];
                 tv_title.setText(details[4]);
                 tv_price.setText(details[5]);
                 tv_desc.setText(details[6]);
@@ -77,6 +81,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 Picasso.with(this).load(details[0]).placeholder(R.drawable.ic_warning).into(iv_mainImg);
                 listingID = details[1];
                 tv_title.setText(details[2]);
+                title = details[4];
                 tv_price.setText(details[3]);
                 tv_desc.setText(details[4]);
               //  tv_loc.setText("test");
@@ -101,12 +106,9 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
 
         Map<String, String> userDetails = new HashMap<>();
         if (!TextUtils.isEmpty(name) || TextUtils.isEmpty(email)) {
-            userDetails.put("dealer_name", dealerName);
-            userDetails.put("dealer_url", dealerUrl);
-            userDetails.put("name", name);
-            userDetails.put("email", email);
-            userDetails.put("phone", et_phone.getText().toString());
-            mDataRef.child("app_requests").child(name).child(listingID).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+            Dealer dealer = new Dealer(dealerName, dealerUrl);
+            Request request = new Request(dealer, title, email, et_phone.getText().toString(), name);
+            mAppRequests.child(mCurUser.getUid()).child(listingID).setValue(request).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     clearInputs();
@@ -126,11 +128,14 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
             mDataRef = mData.getReference().child(mCurUser.getUid());
+            mAppRequests = mData.getReference().child("app_requests");
         }else {
             mAuth = FirebaseAuth.getInstance();
             mCurUser = mAuth.getCurrentUser();
             mData = FirebaseDatabase.getInstance();
             mDataRef = mData.getReference().child(mCurUser.getUid());
+            mAppRequests = mData.getReference().child("app_requests");
+
         }
 
         iv_mainImg   = findViewById(R.id.single_listing_view_iv_mainImg);
@@ -156,6 +161,8 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 // save the listing to the database
                 Map listingMap = new HashMap();
                 if (details.length >= 6) {
+                    Dealer dealer = new Dealer(dealerName, dealerUrl);
+                    listingMap.put("dealerInfo", dealer);
                     listingMap.put("img_url", details[2]);
                     listingMap.put("listingID", details[3]);
                     listingMap.put("desc", details[6]);

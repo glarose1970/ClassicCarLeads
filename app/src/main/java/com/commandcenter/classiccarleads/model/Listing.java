@@ -34,6 +34,8 @@ public class Listing {
         this.long_desc = long_desc;
     }
 
+
+
     public Listing(Dealer dealerInfo, String listingID, String img_url, String title, String make, String model, String year, String price, String desc, String long_desc, String location, boolean isFeatured) {
         this.dealerInfo = dealerInfo;
         this.listingID = listingID;

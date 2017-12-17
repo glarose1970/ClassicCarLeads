@@ -71,7 +71,7 @@ public class SavedSearchFragment extends Fragment{
                     @Override
                     public void onClick(View v) {
 
-                        String[] details = new String[] { listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getDesc() };
+                        String[] details = new String[] {listing.getDealerInfo().getDealer_name(), listing.getDealerInfo().getDealer_url(),  listing.getImg_url(), listing.getListingID(), listing.getTitle(), listing.getPrice(), listing.getDesc() };
                         Intent intent = new Intent(getContext(), Single_Listing_View.class);
                         intent.putExtra("details", details);
                         startActivity(intent);
