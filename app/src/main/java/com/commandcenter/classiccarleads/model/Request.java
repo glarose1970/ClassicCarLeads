@@ -11,16 +11,26 @@ public class Request {
     private String email;
     private String phone;
     private String name;
+    private String comment;
 
     public Request() {
     }
 
-    public Request(Dealer dealerInfo, String title, String email, String phone, String name) {
+    public Request(Dealer dealerInfo, String title, String email, String phone, String name, String comment) {
         this.dealerInfo = dealerInfo;
         this.title = title;
         this.email = email;
         this.phone = phone;
         this.name = name;
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Dealer getDealerInfo() {

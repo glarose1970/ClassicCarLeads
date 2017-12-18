@@ -44,7 +44,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
 
     //==========CONTROLS==========//
     private ImageView iv_mainImg;
-    private EditText et_name, et_email, et_phone;
+    private EditText et_name, et_email, et_phone, et_comment;
     private TextView tv_title, tv_price, tv_desc, tv_loc;
     private Button btn_submit, btn_cancel, btn_save;
     //==========END CONTROLS==========//
@@ -102,12 +102,12 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void submitRequest(String name, String email) {
+    private void submitRequest(String name, String email, String phone, String comment) {
 
-        Map<String, String> userDetails = new HashMap<>();
+       // Map<String, String> userDetails = new HashMap<>();
         if (!TextUtils.isEmpty(name) || TextUtils.isEmpty(email)) {
             Dealer dealer = new Dealer(dealerName, dealerUrl);
-            Request request = new Request(dealer, title, email, et_phone.getText().toString(), name);
+            Request request = new Request(dealer, title, email, phone, name, comment);
             mAppRequests.child(mCurUser.getUid()).child(listingID).setValue(request).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -142,6 +142,7 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
         et_name      = findViewById(R.id.single_listing_view_et_firstName);
         et_email     = findViewById(R.id.single_listing_view_et_email);
         et_phone     = findViewById(R.id.single_listing_view_et_phone);
+        et_comment   = findViewById(R.id.single_listing_view_et_comment);
         tv_title     = findViewById(R.id.single_listing_view_tv_title);
         tv_price     = findViewById(R.id.single_listing_view_tv_price);
         tv_desc      = findViewById(R.id.single_listing_view_tv_desc);
@@ -183,8 +184,10 @@ public class Single_Listing_View extends AppCompatActivity implements View.OnCli
                 }else {
                     String name = et_name.getText().toString();
                     String email = et_email.getText().toString();
+                    String phone = et_phone.getText().toString();
+                    String comment = et_comment.getText().toString();
 
-                    submitRequest(name, email);
+                    submitRequest(name, email, phone, comment);
                 }
                 break;
             case R.id.single_listing_view_btn_Cancel:
