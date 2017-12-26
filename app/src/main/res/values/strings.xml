@@ -102,12 +102,28 @@
     </array>
 
     <array name="models">
+        <item>Anglia</item>
         <item>Camero</item>
+        <item>Capri</item>
         <item>Corvette</item>
+        <item>Chevelle</item>
         <item>Challenger</item>
+        <item>Caprice</item>
+        <item>Escort</item>
+        <item>Lincoln Continental</item>
         <item>Charger</item>
+        <item>Galaxie</item>
+        <item>Shelby</item>
+        <item>Shelby Cobra</item>
         <item>Mustang</item>
+        <item>Monte Carlo SS</item>
+        <item>Impala</item>
         <item>F-150</item>
+        <item>F-100</item>
+        <item>GT40</item>
+        <item>Model T</item>
+        <item>Ford F-Series</item>
         <item>Thunderbird</item>
+        <item>Charger</item>
     </array>
 </resources>

@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Command Center on 11/22/2017.
@@ -71,6 +72,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     //==========END SEARCHLISTINGHELPER==========//
 
     LinearLayout controls;
+    private List<String> model_list = new ArrayList<>();
     private AutoCompleteTextView tv_autoMake, tv_autoModel, tv_autoLoc;
 
     @Nullable
@@ -86,13 +88,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         view.findViewById(R.id.search_fragment_btn_search).setOnClickListener(SearchFragment.this);
         view.findViewById(R.id.search_fragment_btn_clear).setOnClickListener(SearchFragment.this);
         ArrayAdapter<String> statesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.states));
-        ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.makes));
-        ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.models));
+        final ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.makes));
+
         tv_autoMake = view.findViewById(R.id.search_fragment_autoMake);
         tv_autoModel = view.findViewById(R.id.search_fragment_autoModel);
         tv_autoLoc  =  view.findViewById(R.id.search_fragment_autoLoc);
         tv_autoMake.setAdapter(makeAdapter);
-        tv_autoModel.setAdapter(modelAdapter);
+
         tv_autoLoc.setAdapter(statesAdapter);
         GeneratYears();
         yearAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, years);
@@ -108,6 +110,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         tv_autoModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                makeModel(tv_autoMake.getText().toString());
+                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, model_list);
+                tv_autoModel.setAdapter(modelAdapter);
                 tv_autoModel.showDropDown();
             }
         });
@@ -177,5 +182,93 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         tv_autoMake.setText("");
         tv_autoLoc.setText("");
         spinner_year.setSelection(0);
+    }
+
+    /*
+    method to load a list of models for each make
+    which ever make is entered into the make textfield
+    the model list will be loaded with only the models
+    for the selected make
+     */
+    private List<String> makeModel(String make) {
+
+        model_list.clear();
+        String upperMake = make.toUpperCase();
+        switch(upperMake) {
+            case "FORD":
+                model_list.add("Mustang");
+                model_list.add("Thunderbird");
+                model_list.add("F-100");
+                model_list.add("F-150");
+                model_list.add("Model T");
+                model_list.add("Shelby");
+                model_list.add("Shelby Cobra");
+                model_list.add("F-Series");
+                model_list.add("Galaxie");
+                model_list.add("Escort");
+                break;
+            case "CHEVROLET":
+                model_list.add("Bel Air");
+                model_list.add("Camero");
+                model_list.add("Corvette");
+                model_list.add("Chevelle SS");
+                model_list.add("El Camino");
+
+                model_list.add("G-Van");
+                model_list.add("Impala");
+                model_list.add("Monte Carlo SS");
+                model_list.add("S-10");
+
+                break;
+            case "DODGE":
+                model_list.add("Coronet");
+                model_list.add("Charger");
+                model_list.add("Charger SRT-8");
+                model_list.add("Challenger");
+                model_list.add("Dart");
+                model_list.add("Dart GTS 440");
+                model_list.add("Neon SRT-8");
+                model_list.add("Shelby Omni GLH-S");
+                model_list.add("Viper");
+                model_list.add("Viper RT/10");
+                break;
+            case "PONTIAC":
+                model_list.add("GTO");
+                model_list.add("Grand Prix");
+                model_list.add("LeMans");
+                model_list.add("Firebird");
+                model_list.add("Tempest");
+                model_list.add("Sunbird");
+                model_list.add("Torpedo");
+                break;
+            case "BUICK":
+                model_list.add("Riviera");
+                model_list.add("Special");
+                model_list.add("Buick GSX");
+                model_list.add("Century");
+                model_list.add("Regal");
+                break;
+
+            case "PLYMOUTH":
+                model_list.add("Barracuda");
+                model_list.add("Cuda");
+                model_list.add("Duster");
+                model_list.add("Duster 340");
+                model_list.add("Fury");
+                model_list.add("GTX");
+                model_list.add("Road Runner");
+                model_list.add("Roadster");
+                model_list.add("Satalite");
+                model_list.add("Street Rod");
+                model_list.add("Valiant");
+                break;
+            case "GMC":
+                model_list.add("3100");
+                model_list.add("3500");
+                model_list.add("Sprint");
+                model_list.add("Panel Truck");
+                break;
+        }
+        return model_list;
     }
 }
